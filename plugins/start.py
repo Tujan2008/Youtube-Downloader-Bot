@@ -46,8 +46,8 @@ A Project By [🇱🇰SL Bots™](https://t.me/SLBotsofficial)
 START_BUTTON = InlineKeyboardMarkup([
         [InlineKeyboardButton("Channel 😇", url="https://t.me/+IU1ta7Gg19VkYzE1")],
         [InlineKeyboardButton("Our Group 😇", url="https://t.me/trtechguide")]
-        [InlineKeyboardButton("Report Bugs 🙈", url="https://t.me/tujan3")],
-        [InlineKeyboardButton("Creator👦", url="https://t.me/tujan3")]
+        [InlineKeyboardButton("Help ❓", callback_data="cbhelp")],
+        [InlineKeyboardButton("Creator 👦", url="https://t.me/tujan3")]
     ])
 
 HELP_BUTTON = InlineKeyboardMarkup(
