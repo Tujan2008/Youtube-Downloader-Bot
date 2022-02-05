@@ -4,9 +4,9 @@ import time
 import traceback
 import logging
 import pyrogram
-from pyrogram import Client
+from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from pyrogram.types import User, Message, Filters
+from pyrogram.types import User, Message
 
 #Database
 import config
@@ -81,7 +81,7 @@ ABOUT_BUTTON = InlineKeyboardMarkup(
 START_IMG = "https://telegra.ph/file/88446249a9c8aedded515.jpg"
 
 
-@Client.on_message(Filters.command(["start"]), group=-2)
+@Client.on_message(filters.command(["start"]), group=-2)
 async def startprivate(client, message):
     chat_id = message.from_user.id
     if not await db.is_user_exist(chat_id):
@@ -104,7 +104,7 @@ async def startprivate(client, message):
                 quote=True,
             )
         
-@Client.on_message(Filters.command(["help"]))
+@Client.on_message(filters.command(["help"]))
 async def help(bot, update):
     text = HELP_STRING.format(update.from_user.mention)
     reply_markup = HELP_BUTTON
@@ -115,7 +115,7 @@ async def help(bot, update):
         quote=True
     )        
 
-@Client.on_message(Filters.private & filters.command("broadcast"))
+@Client.on_message(filters.private & filters.command("broadcast"))
 async def broadcast_handler_open(_, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -126,7 +126,7 @@ async def broadcast_handler_open(_, m):
         await broadcast(m, db)
 
 
-@Client.on_message(Filters.private & filters.command("stats"))
+@Client.on_message(filters.private & filters.command("stats"))
 async def sts(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
