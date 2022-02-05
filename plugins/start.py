@@ -39,7 +39,7 @@ ABOUT_STRING = """
 ● **🤖 Updates :** [SLBotsOfficial](https://t.me/SLBotsOfficial) 
 """
 START_STRING = """ 
-Hi <b>{message.from_user.first_name}</b>, I'm a YouTube Downloader Bot
+Hi Friend, I'm a YouTube Downloader Bot
 Use /help for More info.
 A Project By [🇱🇰SL Bots™](https://t.me/SLBotsofficial)
 """
