@@ -98,7 +98,7 @@ async def startprivate(client, message):
     await message.reply_photo(
                 START_IMG,
                 caption=START_STRING,
-                reply_markup=InlineKeyboardMarkup(buttons),
+                reply_markup=InlineKeyboardMarkup(START_BUTTON),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
                 quote=True,
