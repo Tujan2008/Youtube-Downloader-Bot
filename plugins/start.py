@@ -22,8 +22,11 @@ db = Database(DB_URL, DB_NAME)
 #Strings
 HELP_STRING = """
 ⚊❮❮❮❮ ｢  Still Wonder How I Work ? 」❯❯❯❯⚊
+
 ● Use /start to Start The Bot 🚀
 ● Use /help to Get the help Menu ❔
+
+**Currently Only Support Video Links. Playlists are not support😁**
 """
 ABOUT_STRING = """
 ● **😀 BOT:** `YouTube Downloader` 
@@ -47,6 +50,28 @@ START_BUTTON = InlineKeyboardMarkup([
         [InlineKeyboardButton("Creator👦", url="https://t.me/tujan3")]
     ])
 
+HELP_BUTTON = InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(text="Home🏠",callback_data="cbstart"),InlineKeyboardButton(text="About🤖",callback_data="cbabout")
+                        ],
+                        [
+                            InlineKeyboardButton(text="Channel 📢",url="https://t.me/+IU1ta7Gg19VkYzE1"),InlineKeyboardButton(text="Group 👨‍👨‍👧‍👦",url="https://t.me/trtechguide")
+                        ]
+                    ]
+                )
+
+ABOUT_BUTTON = InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(text="Help❔",callback_data="cbhelp"),InlineKeyboardButton(text="Home🏠",callback_data="cbstart")
+                        ],
+                        [
+                            InlineKeyboardButton(text="Channel 📢",url="https://t.me/+IU1ta7Gg19VkYzE1"),InlineKeyboardButton(text="Group 👨‍👨‍👧‍👦",url="https://t.me/trtechguide")
+                        ]
+                    ]
+                )
+
 START_IMG = "https://telegra.ph/file/88446249a9c8aedded515.jpg"
 
 
@@ -66,6 +91,17 @@ async def startprivate(client, message):
             logging.info(f"#NewUser :- Name : {message.from_user.first_name} ID : {message.from_user.id}")
     await message.reply_photo=START_IMG, caption=START_STRING, reply_markup=START_BUTTON, disable_web_page_preview=True, quote=True)
     raise StopPropagation
+        
+@Client.on_message(filters.command(["help"]))
+async def help(bot, update):
+    text = HELP_STRING.format(update.from_user.mention)
+    reply_markup = HELP_BUTTON
+    await update.reply_text(
+        text=text,
+        disable_web_page_preview=True,
+        reply_markup=reply_markup,
+        quote=True
+    )        
 
 @Client.on_message(filters.private & filters.command("broadcast"))
 async def broadcast_handler_open(_, m):
@@ -88,3 +124,27 @@ async def sts(c, m):
         parse_mode="Markdown",
         quote=True
     )    
+
+        
+#Callback
+    
+@Client.on_callback_query()
+async def cb_data(bot, update):  
+    if update.data == "cbhelp":
+        await update.message.edit_text(
+            text=HELP_STRING,
+            reply_markup=HELP_BUTTON,
+            disable_web_page_preview=True
+        )
+    elif update.data == "cbabout":
+        await update.message.edit_text(
+            text=ABOUT_STRING,
+            reply_markup=ABOUT_BUTTON,
+            disable_web_page_preview=True
+        )
+    elif update.data == "cbstart":
+        await update.message.edit_text(
+            text=START_STRING,
+            reply_markup=START_BUTTON,
+            disable_web_page_preview=True
+        )
