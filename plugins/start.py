@@ -4,7 +4,7 @@ import time
 import traceback
 import logging
 import pyrogram
-from pyrogram import Client, Filters, StopPropagation, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram import Client, Filters, StopPropagation, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, User, Message
 
 #Database
 import config
