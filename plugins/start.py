@@ -43,12 +43,16 @@ A Project By [🇱🇰SL Bots™](https://t.me/SLBotsofficial)
 """
 
 #Buttons
-START_BUTTON = InlineKeyboardMarkup([
-        [InlineKeyboardButton("Channel 😇", url="https://t.me/+IU1ta7Gg19VkYzE1")],
-        [InlineKeyboardButton("Our Group 😇", url="https://t.me/trtechguide")]
-        [InlineKeyboardButton("Help ❓", callback_data="cbhelp")],
-        [InlineKeyboardButton("Creator 👦", url="https://t.me/tujan3")]
-    ])
+START_BUTTON = InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(text="Help ❓", callback_data="cbhelp"),InlineKeyboardButton(text="About🤖",callback_data="cbabout")
+                        ],
+                        [
+                            InlineKeyboardButton(text="Channel 😇",url="https://t.me/+IU1ta7Gg19VkYzE1"),InlineKeyboardButton("Our Group 😇", url="https://t.me/trtechguide")
+                        ]
+                    ]
+                )
 
 HELP_BUTTON = InlineKeyboardMarkup(
                     [
