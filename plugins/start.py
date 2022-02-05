@@ -6,7 +6,7 @@ import logging
 import pyrogram
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from pyrogram.types import User, Message, filters
+from pyrogram.types import User, Message, Filters
 
 #Database
 import config
@@ -104,7 +104,7 @@ async def startprivate(client, message):
                 quote=True,
             )
         
-@Client.on_message(filters.command(["help"]))
+@Client.on_message(Filters.command(["help"]))
 async def help(bot, update):
     text = HELP_STRING.format(update.from_user.mention)
     reply_markup = HELP_BUTTON
@@ -115,7 +115,7 @@ async def help(bot, update):
         quote=True
     )        
 
-@Client.on_message(filters.private & filters.command("broadcast"))
+@Client.on_message(Filters.private & filters.command("broadcast"))
 async def broadcast_handler_open(_, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -126,7 +126,7 @@ async def broadcast_handler_open(_, m):
         await broadcast(m, db)
 
 
-@Client.on_message(filters.private & filters.command("stats"))
+@Client.on_message(Filters.private & filters.command("stats"))
 async def sts(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
