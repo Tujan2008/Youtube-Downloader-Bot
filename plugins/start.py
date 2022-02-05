@@ -19,18 +19,52 @@ DB_NAME = config.DB_NAME
 
 db = Database(DB_URL, DB_NAME)
 
+#Strings
+HELP_STRING = """
+⚊❮❮❮❮ ｢  Still Wonder How I Work ? 」❯❯❯❯⚊
+● Use /start to Start The Bot 🚀
+● Use /help to Get the help Menu ❔
+"""
+ABOUT_STRING = """
+● **😀 BOT:** `YouTube Downloader` 
+● **👦 CREATOR :** [Mʀ Dᴇᴠɪʟ ⌫](https://t.me/tujan3) 
+● **🚀 SERVER :** `Heroku` 
+● **📖 LIBRARY :** `Pyrogram` 
+● **📃 LANGUAGE :** `Python 3.9` 
+● **🤖 Updates :** [SLBotsOfficial](https://t.me/SLBotsOfficial) 
+"""
+START_STRING = """ 
+Hi <b>{message.from_user.first_name}</b>, I'm a YouTube Downloader Bot
+Use /help for More info.
+A Project By [🇱🇰SL Bots™](https://t.me/SLBotsofficial)
+"""
+
+#Buttons
+START_BUTTON = InlineKeyboardMarkup([
+        [InlineKeyboardButton("Channel 😇", url="https://t.me/+IU1ta7Gg19VkYzE1")],
+        [InlineKeyboardButton("Our Group 😇", url="https://t.me/trtechguide")]
+        [InlineKeyboardButton("Report Bugs 🙈", url="https://t.me/tujan3")],
+        [InlineKeyboardButton("Creator👦", url="https://t.me/tujan3")]
+    ])
+
+START_IMG = "https://telegra.ph/file/88446249a9c8aedded515.jpg"
+
 
 @Client.on_message(Filters.command(["start"]), group=-2)
-async def start(client, message):
-    # return
-    joinButton = InlineKeyboardMarkup([
-        [InlineKeyboardButton("Channel 😇", url="https://t.me/+IU1ta7Gg19VkYzE1")],
-        [InlineKeyboardButton(
-            "Report Bugs 🙈", url="https://t.me/tujan3")],
-         [InlineKeyboardButton("Our Group 😇", url="https://t.me/trtechguide")]
-    ])
-    welcomed = f"Hey <b>{message.from_user.first_name}</b>\n/help for More info"
-    await message.reply_text(welcomed, reply_markup=joinButton)
+async def startprivate(client, message):
+    chat_id = message.from_user.id
+    if not await db.is_user_exist(chat_id):
+        data = await client.get_me()
+        BOT_USERNAME = data.username
+        await db.add_user(chat_id)
+        if LOG_CHANNEL:
+            await client.send_message(
+                LOG_CHANNEL,
+                f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
+            )
+        else:
+            logging.info(f"#NewUser :- Name : {message.from_user.first_name} ID : {message.from_user.id}")
+    await message.reply_photo=START_IMG, caption=START_STRING, reply_markup=START_BUTTON, disable_web_page_preview=True, quote=True)
     raise StopPropagation
 
 @Client.on_message(filters.private & filters.command("broadcast"))
