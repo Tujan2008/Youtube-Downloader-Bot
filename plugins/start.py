@@ -99,8 +99,6 @@ async def startprivate(client, message):
                 START_IMG,
                 caption=START_STRING,
                 reply_markup=InlineKeyboardMarkup(START_BUTTON),
-                parse_mode=ParseMode.MARKDOWN,
-                timeout=60,
                 quote=True,
             )
         
