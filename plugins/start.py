@@ -5,7 +5,8 @@ import traceback
 import logging
 import pyrogram
 from pyrogram import Client, filters
-from pyrogram import Filters, StopPropagation, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, User, Message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram.types import User, Message
 
 #Database
 import config
