@@ -2,7 +2,7 @@ import asyncio
 import os
 import pyrogram
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, ContinuePropagation, InputMediaDocument, InputMediaVideo, InputMediaAudio
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, InputMediaDocument, InputMediaVideo, InputMediaAudio
 from pyrogram.types import User, Message
 
 from helper.ffmfunc import duration
@@ -29,9 +29,6 @@ async def catch_youtube_fmtid(c, m):
                                                                                                     callback_data=f"docvideo||{format_id}||{yturl}")]])
 
         await m.edit_message_reply_markup(buttons)
-
-    else:
-        raise ContinuePropagation
 
 
 @Client.on_callback_query()
@@ -62,7 +59,6 @@ async def catch_youtube_dldata(c, q):
      #   print(thumb_image_path)
     if not cb_data.startswith(("video", "audio", "docaudio", "docvideo")):
         print("no data found")
-        raise ContinuePropagation
 
     filext = "%(title)s.%(ext)s"
     userdir = os.path.join(os.getcwd(), "downloads", str(q.message.chat.id))
