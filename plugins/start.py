@@ -95,7 +95,7 @@ async def startprivate(client, message):
             )
         else:
             logging.info(f"#NewUser :- Name : {message.from_user.first_name} ID : {message.from_user.id}")
-    await message.reply_photo(
+    await message.send_photo(
                 START_IMG,
                 caption=START_STRING,
                 reply_markup=InlineKeyboardMarkup(START_BUTTON),
