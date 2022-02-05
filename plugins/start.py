@@ -28,7 +28,8 @@ HELP_STRING = """
 ● Use /start to Start The Bot 🚀
 ● Use /help to Get the help Menu ❔
 
-**Currently Only Support Video Links. Playlists are not support😁**
+**Just Send URL with Format.(Audio/Video)
+Example: `https://youtube.com/playlist?list=xxxxxxxxxx audio`**
 """
 ABOUT_STRING = """
 ● **😀 BOT:** `YouTube Downloader` 
