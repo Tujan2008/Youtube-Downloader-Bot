@@ -89,8 +89,14 @@ async def startprivate(client, message):
             )
         else:
             logging.info(f"#NewUser :- Name : {message.from_user.first_name} ID : {message.from_user.id}")
-    await message.reply_photo=START_IMG, caption=START_STRING, reply_markup=START_BUTTON, disable_web_page_preview=True, quote=True)
-    raise StopPropagation
+    await message.reply_photo(
+                START_IMG,
+                caption=START_STRING,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.MARKDOWN,
+                timeout=60,
+                quote=True,
+            )
         
 @Client.on_message(filters.command(["help"]))
 async def help(bot, update):
