@@ -4,9 +4,9 @@ import time
 import traceback
 import logging
 import pyrogram
-from pyrogram import Client, filters
+from pyrogram import Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from pyrogram.types import User, Message
+from pyrogram.types import User, Message, filters
 
 #Database
 import config
