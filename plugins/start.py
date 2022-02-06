@@ -104,7 +104,7 @@ async def help(bot, update):
         quote=True
     )        
 
-@Client.on_message(Filters.private & filters.command("broadcast"))
+@Client.on_message(Filters.private & Filters.command("broadcast"))
 async def broadcast_handler_open(_, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -115,7 +115,7 @@ async def broadcast_handler_open(_, m):
         await broadcast(m, db)
 
 
-@Client.on_message(Filters.private & filters.command("stats"))
+@Client.on_message(Filters.private & Filters.command("stats"))
 async def sts(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
