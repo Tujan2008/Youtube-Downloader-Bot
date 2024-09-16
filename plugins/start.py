@@ -1,12 +1,8 @@
 import os
-import requests
 import time
 import traceback
 import logging
-import pyrogram
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from pyrogram.types import User, Message
+from pyrogram import Client, Filters, StopPropagation, InlineKeyboardButton, InlineKeyboardMarkup
 
 #Database
 import config
@@ -24,10 +20,8 @@ db = Database(DB_URL, DB_NAME)
 #Strings
 HELP_STRING = """
 ⚊❮❮❮❮ ｢  Still Wonder How I Work ? 」❯❯❯❯⚊
-
 ● Use /start to Start The Bot 🚀
 ● Use /help to Get the help Menu ❔
-
 **Just Send URL with Format.(Audio/Video)
 Example: `https://youtube.com/playlist?list=xxxxxxxxxx audio`**
 """
@@ -82,7 +76,7 @@ ABOUT_BUTTON = InlineKeyboardMarkup(
 START_IMG = "https://telegra.ph/file/88446249a9c8aedded515.jpg"
 
 
-@Client.on_message(filters.command(["start"]), group=-2)
+@Client.on_message(Filters.command(["start"]), group=-2)
 async def startprivate(client, message):
     chat_id = message.from_user.id
     if not await db.is_user_exist(chat_id):
@@ -96,14 +90,10 @@ async def startprivate(client, message):
             )
         else:
             logging.info(f"#NewUser :- Name : {message.from_user.first_name} ID : {message.from_user.id}")
-    await message.reply_photo(
-                START_IMG,
-                caption=START_STRING,
-                reply_markup=START_BUTTON,
-                quote=True,
-            )
+    await message.reply_photo(START_IMG, caption=START_STRING , reply_markup=START_BUTTON, quote=True)
+    raise StopPropagation
         
-@Client.on_message(filters.command(["help"]))
+@Client.on_message(Filters.command(["help"]))
 async def help(bot, update):
     text = HELP_STRING.format(update.from_user.mention)
     reply_markup = HELP_BUTTON
@@ -114,7 +104,7 @@ async def help(bot, update):
         quote=True
     )        
 
-@Client.on_message(filters.private & filters.command("broadcast"))
+@Client.on_message(Filters.private & Filters.command("broadcast"))
 async def broadcast_handler_open(_, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -125,7 +115,7 @@ async def broadcast_handler_open(_, m):
         await broadcast(m, db)
 
 
-@Client.on_message(filters.private & filters.command("stats"))
+@Client.on_message(Filters.private & Filters.command("stats"))
 async def sts(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
